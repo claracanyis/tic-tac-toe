@@ -65,9 +65,35 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
   const playRound = (row, column) => {
     console.log(`${getActivePlayer().playerName} played in row ${row}, column ${column}.`);
     board.setToken(row, column, getActivePlayer().token);
+    let finishGame = checkGameOver();
+    if (!finishGame) {
+      switchPlayerTurn();
+      printNewRound();
+    }
+  }
 
-    switchPlayerTurn();
-    printNewRound();
+  const checkGameOver = () => {
+    const currentBoard = board.getBoard();
+    // Check if there is 3 in line
+    const currentPlayerWins = currentBoard.some((row) => row.every((cell) => cell.getValue() === activePlayer.token)) ||
+      [currentBoard[0][0], currentBoard[1][0], currentBoard[2][0]].every((cell) => cell.getValue() === activePlayer.token) ||
+      [currentBoard[0][1], currentBoard[1][1], currentBoard[2][1]].every((cell) => cell.getValue() === activePlayer.token) ||
+      [currentBoard[0][2], currentBoard[1][2], currentBoard[2][2]].every((cell) => cell.getValue() === activePlayer.token) ||
+      [currentBoard[0][0], currentBoard[1][1], currentBoard[2][2]].every((cell) => cell.getValue() === activePlayer.token) ||
+      [currentBoard[2][0], currentBoard[1][1], currentBoard[0][2]].every((cell) => cell.getValue() === activePlayer.token);
+
+    const fullBoard = !currentBoard.some((row) => row.some((cell) => cell.getValue() === 0));
+
+    if (currentPlayerWins) {
+      console.log(`Game Over! ${activePlayer.playerName} wins!`);
+      return true;
+    }  else if (fullBoard) {
+      console.log(`Game over! It's a tie!`);
+      return true;
+    } else {
+      console.log('Keep playing!');
+      return false;
+    }
   }
 
   printNewRound();
