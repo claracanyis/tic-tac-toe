@@ -5,9 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
 </head>
 <body>
   
-  <script src="script.js"></script>
+  <div class="game">
+    <div class="info">
+      <h1>Tic Tac Toe</h1>
+      <div class="players-names">
+        <div class="active-player">Player One</div>
+        <div>Player Two</div>
+      </div>
+      <p class="game-info">Game info here</p>
+    </div>
+    <div class="board">
+      <button class="cell" data-row="0" data-column="0"></button>
+      <button class="cell" data-row="0" data-column="1"></button>
+      <button class="cell" data-row="0" data-column="2"></button>
+      <button class="cell" data-row="1" data-column="0"></button>
+      <button class="cell" data-row="1" data-column="1"></button>
+      <button class="cell" data-row="1" data-column="2"></button>
+      <button class="cell" data-row="2" data-column="0"></button>
+      <button class="cell" data-row="2" data-column="1"></button>
+      <button class="cell" data-row="2" data-column="2"></button>
+    </div>
+  </div>
+  
 </body>
 </html>
