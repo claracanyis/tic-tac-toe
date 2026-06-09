@@ -1,4 +1,5 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -78,4 +79,57 @@ h1 {
 .cell:hover {
   background-color: rgb(172, 108, 231);
   color: white
+}
+
+dialog.start-game {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(138, 43, 226, 0.6);
+  border: none;
+}
+
+form.start-game {
+  background-color: black;
+  color: white;
+  width: 500px;
+  height: 200px;
+  padding: 30px;
+  margin: 20% auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.player-name-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+input[type="text"] {
+  height: 30px;
+  background-color: blueviolet;
+  border: none;
+}
+
+input[type="text"]:focus-visible {
+  outline: 2px solid blueviolet;
+  background-color: white;
+}
+
+.btn-start {
+  padding: 15px 30px;
+  background-color: blueviolet;
+  color: white;
+  font-size: 1.3rem;
+  border: none;
+}
+
+.btn-start:hover {
+  background-color: rgb(172, 108, 231);
+}
+
+.btn-start:active {
+  background-color: rgba(138, 43, 226);
 }

@@ -8,7 +8,19 @@
   <script src="script.js"></script>
 </head>
 <body>
-  
+  <dialog class="start-game" open>
+    <form class="start-game" action="start-game" method="dialog">
+      <div class="player-name-input">
+        <label for="">Player One Name:</label>
+        <input type="text" min="3" max="18">
+      </div>
+      <div class="player-name-input">
+        <label for="">Player Two Name:</label>
+        <input type="text" min="3" max="18">
+      </div>
+      <button class="btn-start">Start Game</button>
+    </form>
+  </dialog>
   <div class="game">
     <div class="info">
       <h1>Tic Tac Toe</h1>
