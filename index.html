@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  
 </head>
 <body>
   <dialog class="start-game" open>
     <form class="start-game" action="start-game" method="dialog">
       <div class="player-name-input">
-        <label for="">Player One Name:</label>
-        <input type="text" min="3" max="18">
+        <label for="player-one-name">Player One Name:</label>
+        <input id="player-one-name" name="player-one-name" type="text" min="3" max="18">
       </div>
       <div class="player-name-input">
-        <label for="">Player Two Name:</label>
-        <input type="text" min="3" max="18">
+        <label for="player-two-name">Player Two Name:</label>
+        <input id="player-two-name" name="player-two-name" type="text" min="3" max="18">
       </div>
       <button class="btn-start">Start Game</button>
     </form>
@@ -25,8 +25,8 @@
     <div class="info">
       <h1>Tic Tac Toe</h1>
       <div class="players-names">
-        <div class="active-player">Player One</div>
-        <div>Player Two</div>
+        <div id="name-p1-display" class="active-player">Player One</div>
+        <div id="name-p2-display" >Player Two</div>
       </div>
       <p class="game-info">Game info here</p>
     </div>
@@ -43,5 +43,6 @@
     </div>
   </div>
   
+  <script src="script.js"></script>
 </body>
 </html>

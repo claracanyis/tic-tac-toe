@@ -101,3 +101,31 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
   return {playRound, getActivePlayer}
 })
 
+const AppRender = () => {
+  const board = Gameboard();
+  let game;
+  const btnStart = document.querySelector('.btn-start');
+  const appBoard = document.querySelector('.board');
+  const playerOneNameInput = document.querySelector('#player-one-name');
+  const playerTwoNameInput = document.querySelector('#player-two-name');
+  const playerOneNameDisplay = document.querySelector('#name-p1-display');
+  const playerTwoNameDisplay = document.querySelector('#name-p2-display');
+
+  const startGame = () => {
+    playerOneNameDisplay.textContent = (playerOneNameInput.value != '') ? playerOneNameInput.value : 'Player One';
+    playerTwoNameDisplay.textContent = (playerTwoNameInput.value != '') ? playerTwoeNameInput.value : 'Player Two';
+    game = GameControl(playerOneNameDisplay.textContent, playerTwoNameDisplay.textContent);
+  }
+
+  btnStart.addEventListener('click', startGame);
+
+  const clickBoardHandler = (event) => {
+    const row = event.target.dataset.row;
+    const column = event.target.dataset.column;
+    game.playRound(row, column);
+  }
+
+  appBoard.addEventListener('click', clickBoardHandler);
+}
+
+AppRender();
