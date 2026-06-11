@@ -51,12 +51,15 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
   const board = Gameboard();
 
   let activePlayer = players[0];
+  let infoGame = '';
 
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === players[0]? players[1] : players[0];
   }
 
   const getActivePlayer = () => activePlayer;
+
+  const getInfoGame = () => infoGame;
 
   const printNewRound = () => {
     console.log(`It's ${getActivePlayer().playerName}'s turn.`);
@@ -85,19 +88,22 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
 
     if (currentPlayerWins) {
       console.log(`Game Over! ${activePlayer.playerName} wins!`);
+      infoGame = `Game Over! ${activePlayer.playerName} wins!`;
       return true;
     }  else if (fullBoard) {
       console.log(`Game over! It's a tie!`);
+      infoGame = `Game over! It's a tie!`;
       return true;
     } else {
       console.log('Keep playing!');
+      infoGame = 'Keep playing!';
       return false;
     }
   }
 
   printNewRound();
 
-  return {playRound, getActivePlayer}
+  return {playRound, getActivePlayer, getInfoGame}
 })
 
 const AppRender = () => {
@@ -110,11 +116,13 @@ const AppRender = () => {
   const playerTwoNameInput = document.querySelector('#player-two-name');
   const playerOneNameDisplay = document.querySelector('#name-p1-display');
   const playerTwoNameDisplay = document.querySelector('#name-p2-display');
+  const infoGameDisplay = document.querySelector('.game-info');
 
   const startGame = () => {
     playerOneNameDisplay.textContent = (playerOneNameInput.value != '') ? playerOneNameInput.value : 'Player One';
     playerTwoNameDisplay.textContent = (playerTwoNameInput.value != '') ? playerTwoeNameInput.value : 'Player Two';
     game = GameControl(playerOneNameDisplay.textContent, playerTwoNameDisplay.textContent);
+    updateInfoGame();
   }
 
   btnStart.addEventListener('click', startGame);
@@ -137,11 +145,32 @@ const AppRender = () => {
     }))
   }
 
+  const updateActivePlayer = () => {
+    if (game.getActivePlayer().playerName === playerOneNameDisplay.textContent) {
+      playerOneNameDisplay.classList.add('active-player');
+      playerTwoNameDisplay.classList.remove('active-player');
+    } else {
+      playerOneNameDisplay.classList.remove('active-player');
+      playerTwoNameDisplay.classList.add('active-player');
+    }
+  }
+
+  const updateInfoGame = () => {
+    if (game.getInfoGame() === '') {
+      infoGameDisplay.textContent = `It's ${game.getActivePlayer().playerName}'s turn.`
+      console.log('Hey there!')
+    } else {
+      infoGameDisplay.textContent = game.getInfoGame();
+    }
+  }
+
   const clickBoardHandler = (event) => {
     const row = event.target.dataset.row;
     const column = event.target.dataset.column;
     newRoundBoard = game.playRound(row, column);
     updateBoard(newRoundBoard);
+    updateActivePlayer();
+    updateInfoGame();
   }
 
   appBoard.addEventListener('click', clickBoardHandler);
