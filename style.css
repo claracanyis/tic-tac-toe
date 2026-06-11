@@ -69,6 +69,7 @@ h1 {
   color:blueviolet;
   border: none;
   border-radius: 0;
+  font-size: 5rem;
 }
 
 .cell:active {

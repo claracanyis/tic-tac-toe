@@ -25,6 +25,7 @@ function Gameboard() {
       row.map((cell) => cell.getValue())
     );
     console.log(boardWithCellValues);
+    return boardWithCellValues;
   }
 
   return {getBoard, setToken, printBoard};
@@ -59,17 +60,15 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
 
   const printNewRound = () => {
     console.log(`It's ${getActivePlayer().playerName}'s turn.`);
-    board.printBoard();
+    return board.printBoard();
   }
 
   const playRound = (row, column) => {
     console.log(`${getActivePlayer().playerName} played in row ${row}, column ${column}.`);
     board.setToken(row, column, getActivePlayer().token);
-    let finishGame = checkGameOver();
-    if (!finishGame) {
-      switchPlayerTurn();
-      printNewRound();
-    }
+    checkGameOver();
+    switchPlayerTurn();
+    return printNewRound();
   }
 
   const checkGameOver = () => {
@@ -102,10 +101,11 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
 })
 
 const AppRender = () => {
-  const board = Gameboard();
   let game;
+  let newRoundBoard;
   const btnStart = document.querySelector('.btn-start');
   const appBoard = document.querySelector('.board');
+  const appCells = document.querySelectorAll('.cell');
   const playerOneNameInput = document.querySelector('#player-one-name');
   const playerTwoNameInput = document.querySelector('#player-two-name');
   const playerOneNameDisplay = document.querySelector('#name-p1-display');
@@ -119,10 +119,29 @@ const AppRender = () => {
 
   btnStart.addEventListener('click', startGame);
 
+  const updateBoard = (newRoundBoard) => {
+    newRoundBoard.forEach((row, rowIndex) => row.forEach((value, columnIndex) => {
+      const buttonIndex = rowIndex*3 + columnIndex;
+      const appCell = appCells[buttonIndex];
+      switch(newRoundBoard[rowIndex][columnIndex]) {
+        case 0:
+          appCell.textContent = '';
+          break;
+        case 1:
+          appCell.textContent = 'X';
+          break;
+        case 2:
+          appCell.textContent = 'O';
+          break;
+      };
+    }))
+  }
+
   const clickBoardHandler = (event) => {
     const row = event.target.dataset.row;
     const column = event.target.dataset.column;
-    game.playRound(row, column);
+    newRoundBoard = game.playRound(row, column);
+    updateBoard(newRoundBoard);
   }
 
   appBoard.addEventListener('click', clickBoardHandler);
