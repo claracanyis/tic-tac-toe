@@ -120,7 +120,7 @@ const AppRender = () => {
 
   const startGame = () => {
     playerOneNameDisplay.textContent = (playerOneNameInput.value != '') ? playerOneNameInput.value : 'Player One';
-    playerTwoNameDisplay.textContent = (playerTwoNameInput.value != '') ? playerTwoeNameInput.value : 'Player Two';
+    playerTwoNameDisplay.textContent = (playerTwoNameInput.value != '') ? playerTwoNameInput.value : 'Player Two';
     game = GameControl(playerOneNameDisplay.textContent, playerTwoNameDisplay.textContent);
     updateInfoGame();
   }
