@@ -96,7 +96,7 @@ form.start-game {
   width: 500px;
   height: 200px;
   padding: 30px;
-  margin: 20% auto;
+  margin: 10% auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -114,6 +114,7 @@ input[type="text"] {
   background-color: blueviolet;
   border: none;
   color: white;
+  padding: 0 10px;
 }
 
 input[type="text"]:focus-visible {
@@ -157,7 +158,7 @@ div.game-over {
   width: 600px;
   height: 400px;
   padding: 30px;
-  margin: 20% auto;
+  margin: 10% auto;
   text-align: center;
   display: flex;
   flex-direction: column;
