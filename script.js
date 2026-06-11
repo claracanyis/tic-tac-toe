@@ -52,6 +52,7 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
 
   let activePlayer = players[0];
   let infoGame = '';
+  let gameOver;
 
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === players[0]? players[1] : players[0];
@@ -61,6 +62,8 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
 
   const getInfoGame = () => infoGame;
 
+  const isGameOver = () => gameOver;
+
   const printNewRound = () => {
     console.log(`It's ${getActivePlayer().playerName}'s turn.`);
     return board.printBoard();
@@ -69,7 +72,7 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
   const playRound = (row, column) => {
     console.log(`${getActivePlayer().playerName} played in row ${row}, column ${column}.`);
     board.setToken(row, column, getActivePlayer().token);
-    checkGameOver();
+    gameOver = checkGameOver();
     switchPlayerTurn();
     return printNewRound();
   }
@@ -103,12 +106,14 @@ const GameControl = ((playerOneName = "Player One", playerTwoName = "Player Two"
 
   printNewRound();
 
-  return {playRound, getActivePlayer, getInfoGame}
+  return {playRound, getActivePlayer, getInfoGame, isGameOver}
 })
 
 const AppRender = () => {
   let game;
   let newRoundBoard;
+  const dialogStart = document.querySelector('dialog.start-game');
+  const formStart = document.querySelector('form.start-game');
   const btnStart = document.querySelector('.btn-start');
   const appBoard = document.querySelector('.board');
   const appCells = document.querySelectorAll('.cell');
@@ -126,6 +131,14 @@ const AppRender = () => {
   }
 
   btnStart.addEventListener('click', startGame);
+
+  const resetGame = () => {
+    // Delete all tokens
+    game = GameControl(playerOneNameDisplay.textContent, playerTwoNameDisplay.textContent);
+    appCells.forEach((button) => button.textContent = '');
+    playerOneNameDisplay.classList = 'active-player';
+    playerTwoNameDisplay.classList = '';
+  }
 
   const updateBoard = (newRoundBoard) => {
     newRoundBoard.forEach((row, rowIndex) => row.forEach((value, columnIndex) => {
@@ -171,6 +184,12 @@ const AppRender = () => {
     updateBoard(newRoundBoard);
     updateActivePlayer();
     updateInfoGame();
+
+    if (game.isGameOver()) {
+      formStart.reset();
+      dialogStart.showModal();
+      resetGame();
+    }
   }
 
   appBoard.addEventListener('click', clickBoardHandler);
