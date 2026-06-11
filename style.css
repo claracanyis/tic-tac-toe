@@ -112,11 +112,13 @@ input[type="text"] {
   height: 30px;
   background-color: blueviolet;
   border: none;
+  color: white;
 }
 
 input[type="text"]:focus-visible {
   outline: 2px solid blueviolet;
   background-color: white;
+  color: black;
 }
 
 .btn-start {
@@ -132,5 +134,44 @@ input[type="text"]:focus-visible {
 }
 
 .btn-start:active {
+  background-color: rgba(138, 43, 226);
+}
+
+dialog.game-over {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(138, 43, 226, 0.6);
+  border: none;
+}
+
+div.game-over {
+  background-color: black;
+  color: white;
+  width: 600px;
+  height: 400px;
+  padding: 30px;
+  margin: 20% auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#winner-name {
+  font-size: 4rem;
+}
+
+.btn-restart {
+  padding: 15px 30px;
+  background-color: blueviolet;
+  color: white;
+  font-size: 1.3rem;
+  border: none;
+}
+
+.btn-restart:hover {
+  background-color: rgb(172, 108, 231);
+}
+
+.btn-restart:active {
   background-color: rgba(138, 43, 226);
 }

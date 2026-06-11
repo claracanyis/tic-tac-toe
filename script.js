@@ -122,6 +122,9 @@ const AppRender = () => {
   const playerOneNameDisplay = document.querySelector('#name-p1-display');
   const playerTwoNameDisplay = document.querySelector('#name-p2-display');
   const infoGameDisplay = document.querySelector('.game-info');
+  const dialogGameOver = document.querySelector('dialog.game-over');
+  const winnerDisplay = document.querySelector('#winner-name');
+  const btnRestart = document.querySelector('.btn-restart');
 
   const startGame = () => {
     playerOneNameDisplay.textContent = (playerOneNameInput.value != '') ? playerOneNameInput.value : 'Player One';
@@ -133,7 +136,9 @@ const AppRender = () => {
   btnStart.addEventListener('click', startGame);
 
   const resetGame = () => {
-    // Delete all tokens
+    dialogGameOver.close();
+    formStart.reset();
+    dialogStart.showModal()
     game = GameControl(playerOneNameDisplay.textContent, playerTwoNameDisplay.textContent);
     appCells.forEach((button) => button.textContent = '');
     playerOneNameDisplay.classList = 'active-player';
@@ -186,13 +191,16 @@ const AppRender = () => {
     updateInfoGame();
 
     if (game.isGameOver()) {
-      formStart.reset();
-      dialogStart.showModal();
-      resetGame();
+      dialogGameOver.showModal();
+      winnerDisplay.textContent = game.getInfoGame();
+      // in EventHandler
+      
     }
   }
 
   appBoard.addEventListener('click', clickBoardHandler);
+
+  btnRestart.addEventListener('click', resetGame);
 }
 
 AppRender();
